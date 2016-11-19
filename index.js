@@ -49,7 +49,8 @@ function setup () {
   // This object represents one movie.
   var tremorsMovie = new schema.Movie ({
     title: 'Tremors',
-    year: 1990
+    year: 1990,
+    rating: 'PG-13'
   });
 
   // These are the amazing actors from that movie.
@@ -76,7 +77,7 @@ function setup () {
       console.log('Created movie record for', movie.title);
       
       actors.forEach(function (actor) {
-        actor.movies.push(movie._id);
+        actor.addMovie(movie);
         promises.push(actor.save());
       });
 
@@ -88,7 +89,7 @@ function setup () {
     .then(function (actors) {
       actors.forEach(function (actor) {
         console.log('Finishing actor record for', actor.firstName, actor.lastName);
-        tremorsMovie.actors.push(actor._id);
+        tremorsMovie.addActor(actor);
       });
 
       return tremorsMovie.save();
